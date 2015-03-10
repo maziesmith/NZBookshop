@@ -1,0 +1,104 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Bookshop.master.cs" Inherits="Bookshop" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>NZBookshop</title>
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <script>
+        function simpleSearch() {
+            var key = document.getElementById("keyWord").value;
+            if (!key) {
+                alert('Please enter a keyword');
+                return;
+            }
+            window.location = "SimpleSearch.aspx?key=" + key;
+        }
+    </script>
+    <style type="text/css">
+        #footer {
+            height: 248px;
+            width: 1200px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="page" style="margin:0 auto;width:1200px;">
+            <div class="header" style="width:1200px;margin:0 auto;">
+                <%-- logo, advertisements and navi--%>
+                <img src="images/logo.png" alt="NZBookshop" style="height:80px;" />
+                <img src="images/banner.jpg" alt="College Discount" style="height:80px; width: 1000px;" />
+                <a href="ShopCartPage.aspx">
+                    <img src="images/cart.jpg" alt="Cart" style="height: 27px; margin-top: 0px; width: 100px;" /></a><br />
+                <div style="padding:5px 0px; background-color:#e0f0ff;border:1px solid green;">
+                    <a href="Default.aspx">Home Page</a> |
+                    <a href="#">Top Sellers</a> |
+                    <a href="ShopCartPage.aspx">Cart</a> |
+                    <a href="#">Login</a> |
+                    <a href="#">My Orders</a> |
+                    <a href="#">Change Password</a> |
+                    <a href="#">Logout</a> | Search for Book:<input type="text" id="keyWord" />
+                    <a href="javascript:simpleSearch();">
+                        <img src="images/search.jpg" style="vertical-align:middle; height: 25px; width: 93px;" alt="Search" />
+                    </a>
+                    <a style="text-decoration:underline;" href="AdvanceSearch.aspx">Advance Search</a>
+                </div>
+            </div>
+            <%-- main body--%>
+            <div style="clear:both;">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+                </asp:ContentPlaceHolder>
+            </div>
+            <hr style="color:silver;" />
+            <%-- footer--%>
+            <div id="footer">
+                <div style="float:left;">
+                    <img src="images/logo.png" alt="" style="height: 131px; width: 131px" />
+                </div>
+                <div style="margin-left:10px; float:left;">
+                    <a href="Default.aspx"><b>Home Page</b></a>&nbsp;|&nbsp;
+                    <a href="#"><b>About Us</b></a>&nbsp; |&nbsp;
+                    <a href="#"><b>Career</b></a>
+                    <sup><img src="images/new2.jpg" style="height: 33px; width: 58px" /></sup>|&nbsp;
+                    <a href="#"><b>Help</b></a>&nbsp; |&nbsp;
+                    <a href="mailto:wuke1122@gmail.com"><b>Contact Us</b></a>&nbsp; |&nbsp;
+                    <a href="Default.aspx"><b>Book Category</b></a><br /><br />
+                    Contact Number: 888888888<span class="orange13"></span>
+                    <br />
+                    <span class="gray12">
+                        <a target="_blank" href="#">Online Help</a>
+                        <a target="_blank" href="#">Customer Service</a>
+                    </span>
+                    <br />
+                    <span class="orange13">Working Hours Mon to Fri 7:30am to 19:30pm 
+                    <br />
+                    Sat,Sun 9:00am to 17:30pm</span>
+                    <br />
+                    Copyright 2015 NZBookshop.All rights reserved
+                </div>
+                <div style="margin:20px 30pt 20px auto;float:right;">
+                    <a target="_blank" href="http://www.315online.com.cn/member/315090031.html">
+                        <img border="0" align="left" title="Protected by online trading law" style="margin:10px 10px 0pt 0pt; height: 52px; width: 54px;"
+                            src="images/bz315.jpg" />
+                    </a>
+                    <div style="margin-top:10px;float:left;">
+                        <a target="_blank" href="http://www.315online.com.cn/member/315090031.html">Online trading<br />protection centre</a>
+                    </div>
+                    <div style="float:left;">
+                        <a target="_blank" href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202001072000126">
+                            <img border="0" title="Backup" src="images/biaoshi.png" style="height: 54px; width: 46px" />
+                        </a>
+                    </div>
+                    <div style="float:left;margin-top:10px;">
+                        <a target="_blank" href="http://www.miibeian.gov.cn/">Jing ICP<br />00011</a>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
