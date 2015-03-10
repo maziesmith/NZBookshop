@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -14,20 +16,13 @@ public static class BookDAL
     ///</summary>
     ///<param name="bookid">ID of the book</param>
     ///<returns>Book information</returns>
-    public static SqlConnection getConnection()
-    {
-        string s = System.Configuration.ConfigurationManager.ConnectionStrings["database"].ConnectionString;
-        SqlConnection connection = new SqlConnection(s);
-        return connection;
-    }
     public static Book getBookById(int bookid)
     {
-        SqlConnection connection = BookDAL.getConnection();
+        SqlHelper db = new SqlHelper();
         string sql = "select * from Book where BookId=@id";
-        SqlCommand command = new SqlCommand(sql, connection);
-        SqlParameter p1 = new SqlParameter("@id", bookid);
-        command.Parameters.Add(p1);
-        using (SqlDataReader reader = command.ExecuteReader())
+        DbCommand command = db.GetSqlStringCommond(sql);
+        db.AddInParameter(command, "@id", System.Data.DbType.Int32, bookid);
+        using (DbDataReader reader = db.ExecuteReader(command))
         {
             if (!reader.Read())
                 return null;
@@ -90,5 +85,47 @@ public static class BookDAL
             temp = string.Format(" and (PublisherName like '%{0}%') ", criterion.publisher);
             sql += temp;
         }
+        return sql;
     }
+    /// <summary>
+        /// search for books based on certain condition, allow paging
+        /// </summary>
+        /// <param name="criterion">condition</param>
+        /// <param name="pageIndex">PageIndex</param>
+        /// <param name="pageSize">size of the page</param>
+        /// <param name="count">number of books that matches the condition</param>
+        /// <returns>the certain books' information</returns>
+        public static DataTable search(SearchBookCriterion criterion,int pageIndex,int pageSize,out int count)
+        {            
+            string where=" ";
+            if(criterion!=null)
+                where = buildWhereString(criterion);            
+            SqlHelper db = new SqlHelper();
+            DbCommand command = db.GetSqlStringCommond("select count(*) from Book where 1=1 "+where);
+            count = Convert.ToInt32(db.ExecuteScalar(command));
+            string sql = "SELECT BookID,BookTitle,Price,Discount,RealPrice,Author1,Author2,Author3,"
+               + " SmallImage,PublisherName,PublishDate,"
+               + " Row_Number() over (order by BookID desc) as rownum "
+               + " FROM Book where (1=1) ";
+            sql += where;
+            string temp=null;
+            sql = "WITH tempTable AS (" + sql + ") ";
+            temp = string.Format(" select * from tempTable where rownum between {0} and {1} ",
+                (pageIndex - 1) * pageSize + 1, pageIndex * pageSize);
+            sql += temp;            
+            command = db.GetSqlStringCommond(sql);
+            return db.ExecuteDataTable(command);            
+        }
+}
+
+/// <summary>
+/// Summary description for SearchBookCriterion
+/// </summary>
+public class SearchBookCriterion
+{
+    public string title = null;
+    public DateTime? date1 = null, date2 = null;
+    public string author = null;
+    public string publisher = null;
+    public double? price1 = null, price2 = null;
 }
