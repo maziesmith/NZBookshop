@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>NZBookshop</title>
+    <link href="styles/bookshop.css" rel="stylesheet" />
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
     <script>
@@ -19,21 +20,20 @@
     </script>
     <style type="text/css">
         #footer {
-            height: 248px;
-            width: 1200px;
+            
         }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="page" style="margin:0 auto;width:1200px;">
-            <div class="header" style="width:1200px;margin:0 auto;">
+        <div class="content">
+            <div class="header">
                 <%-- logo, advertisements and navi--%>
                 <img src="images/logo.png" alt="NZBookshop" style="height:80px;" />
                 <img src="images/banner.jpg" alt="College Discount" style="height:80px; width: 1000px;" />
                 <a href="ShopCartPage.aspx">
                     <img src="images/cart.jpg" alt="Cart" style="height: 27px; margin-top: 0px; width: 100px;" /></a><br />
-                <div style="padding:5px 0px; background-color:#e0f0ff;border:1px solid green;">
+                <div class="navi">
                     <a href="Default.aspx">Home Page</a> |
                     <a href="#">Top Sellers</a> |
                     <a href="ShopCartPage.aspx">Cart</a> |
@@ -55,7 +55,7 @@
             </div>
             <hr style="color:silver;" />
             <%-- footer--%>
-            <div id="footer">
+            <div class="footer">
                 <div style="float:left;">
                     <img src="images/logo.png" alt="" style="height: 131px; width: 131px" />
                 </div>

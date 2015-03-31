@@ -3,3 +3,27 @@
 .hoverRow{background-color:#ffffdd;}
 .text{border:solid 1px #9af;}
 .select{border:solid 1px;background-color:#ffd;width:120px;}
+
+a {
+    text-decoration: none;
+    color:black;
+}
+div.content {
+    margin:0 auto;
+    width:1200px;
+}
+
+div.header{
+    width:100%;
+}
+
+div.navi{
+    padding:5px 0px; 
+    background-color:#e0f0ff;
+    border:1px solid green;
+}
+
+div.footer{
+    height: 248px;
+    width: 1200px;
+}
